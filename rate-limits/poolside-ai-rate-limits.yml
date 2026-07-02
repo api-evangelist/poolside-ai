@@ -1,0 +1,51 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Poolside
+providerId: poolside-ai
+created: '2026-07-02'
+modified: '2026-07-02'
+reconciled: false
+tags:
+- AI
+- Foundation Models
+- Enterprise
+- On-Prem
+- Rate Limiting
+description: >-
+  Poolside publishes no numeric public rate limits for its OpenAI-compatible
+  API or its Identity Management / SCIM API. That is consistent with the
+  product: each API only exists inside a customer's own Poolside deployment
+  (Cloud VPC or on-prem/air-gapped), so throughput is bounded by the compute
+  the customer provisions - either Poolside's pre-provisioned hardware (sized
+  for "hundreds of developers" per node) or the customer's own NVIDIA GPU
+  cluster - rather than by a shared multi-tenant quota Poolside enforces
+  centrally.
+notes: >-
+  No per-key or per-minute request caps are documented as of the review date.
+  Capacity planning is effectively a hardware-sizing conversation with
+  Poolside at deployment time, not a published API rate-limit table.
+sources:
+- https://docs.poolside.ai/api/overview
+- https://docs.poolside.ai/api/authentication
+- https://poolside.ai/enterprise
+limits:
+- name: Chat / Completions Throughput
+  scope: deployment
+  metric: requests
+  limit: hardware-bound (sized per deployment; not published)
+  notes: Governed by the GPU capacity provisioned for the customer's deployment, not a Poolside-enforced quota.
+- name: Identity Management / SCIM API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric limit documented for /poolside/v1 or /scim endpoints.
+- name: API Keys per Tenant
+  scope: account
+  metric: keys
+  limit: not published
+  notes: Developer keys are self-issued per user with deployment access; service-account keys require the tenant-admin role.
+policies: []
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

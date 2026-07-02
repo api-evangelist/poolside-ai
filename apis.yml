@@ -1,0 +1,152 @@
+aid: poolside-ai
+url: https://raw.githubusercontent.com/api-evangelist/poolside-ai/refs/heads/main/apis.yml
+name: Poolside
+kind: company
+description: >-
+  Poolside is an AI foundation model lab (founded 2023 by former GitHub CTO
+  Jason Warner and Eiso Kant) building open-weight foundation models - the
+  Laguna family - purpose-built for agentic software engineering. Poolside
+  does not run a shared public SaaS API the way OpenAI or Groq do. Instead it
+  publishes a full, public API reference (docs.poolside.ai) for an
+  OpenAI-compatible inference API plus an admin/identity API, but the API
+  itself only comes alive once a customer has a provisioned Poolside
+  deployment - into their own AWS/Azure/Google Cloud VPC, on customer-owned
+  NVIDIA GPU clusters via Helm, or fully air-gapped on-prem. There is no
+  public signup page, free tier, or published pricing; access is arranged
+  directly with Poolside's sales team. Separately, Poolside's smaller
+  open-weight model, Laguna XS 2.1, can be called by anyone through
+  third-party inference hosts such as OpenRouter, which is the closest thing
+  to a public, self-serve way to hit a Poolside model over HTTP.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- AI
+- LLM
+- Foundation Models
+- Agentic Coding
+- Software Engineering
+- Enterprise
+- On-Prem
+- Open Weights
+created: '2026-07-02'
+modified: '2026-07-02'
+specificationVersion: '0.19'
+apis:
+- aid: poolside-ai:poolside-chat-completions-api
+  name: Poolside Chat Completions API
+  tags:
+  - Chat
+  - Completions
+  - LLM
+  - OpenAI Compatible
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.poolside.ai/openai-api/chat/create-chat-completion
+  baseURL: https://<api-domain>/openai/v1
+  properties:
+  - url: https://docs.poolside.ai/api/overview
+    type: Documentation
+  - url: https://docs.poolside.ai/openai-api/chat/create-chat-completion
+    type: APIReference
+  - url: https://docs.poolside.ai/api/openai-api-examples
+    type: Documentation
+  - url: openapi/poolside-ai-openapi.json
+    type: OpenAPI
+  description: >-
+    OpenAI-compatible chat completions endpoint (POST /openai/v1/chat/completions)
+    serving Poolside's Laguna models, including streaming responses. The base
+    URL is not a shared public host - it is configured per customer deployment,
+    per Poolside's own documentation ("The base URL is configured per
+    deployment: https://<api-domain>").
+- aid: poolside-ai:poolside-completions-api
+  name: Poolside Completions API (Legacy)
+  tags:
+  - Completions
+  - Legacy
+  - OpenAI Compatible
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.poolside.ai/openai-api/chat/create-completion
+  baseURL: https://<api-domain>/openai/v1
+  properties:
+  - url: https://docs.poolside.ai/openai-api/chat/create-completion
+    type: APIReference
+  - url: openapi/poolside-ai-openapi.json
+    type: OpenAPI
+  description: >-
+    Legacy token-completion endpoint (POST /openai/v1/completions), documented
+    as deprecated in favor of chat completions but still published in
+    Poolside's OpenAI-compatible OpenAPI spec.
+- aid: poolside-ai:poolside-models-api
+  name: Poolside Models API
+  tags:
+  - Models
+  - Catalog
+  - OpenAI Compatible
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.poolside.ai/openai-api/models/list-models
+  baseURL: https://<api-domain>/openai/v1
+  properties:
+  - url: https://docs.poolside.ai/openai-api/models/list-models
+    type: APIReference
+  - url: openapi/poolside-ai-openapi.json
+    type: OpenAPI
+  description: >-
+    Lists the models available on a given Poolside deployment (GET
+    /openai/v1/models), returning id, owned_by, and created fields per model
+    in an OpenAI-compatible page format.
+- aid: poolside-ai:poolside-identity-management-api
+  name: Poolside Identity Management API
+  tags:
+  - Admin
+  - Teams
+  - Users
+  - Identity
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.poolside.ai/organization/identity-management-api
+  baseURL: https://<api-domain>/poolside/v1
+  properties:
+  - url: https://docs.poolside.ai/organization/identity-management-api
+    type: Documentation
+  - url: https://docs.poolside.ai/poolside-api/team/list-teams
+    type: APIReference
+  - url: https://docs.poolside.ai/poolside-api/team/add-team-members
+    type: APIReference
+  - url: https://docs.poolside.ai/poolside-api/user/create-user
+    type: APIReference
+  description: >-
+    Poolside's own admin API (/poolside/v1) for automating user and team
+    administration on a deployment - create/get/update/delete users, and
+    add, remove, or replace team membership - as an alternative or complement
+    to SCIM. Requires a service account API key created by a tenant-admin.
+- aid: poolside-ai:poolside-scim-api
+  name: Poolside SCIM API
+  tags:
+  - SCIM
+  - Identity
+  - Provisioning
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.poolside.ai/api/overview
+  baseURL: https://<api-domain>/scim
+  properties:
+  - url: https://docs.poolside.ai/api/overview
+    type: Documentation
+  description: >-
+    SCIM 2.0 provisioning endpoint (/scim) for connecting an external identity
+    provider (Okta, Entra ID, etc.) to automatically provision and deprovision
+    Poolside users on a deployment.
+common:
+- type: GitHubOrganization
+  url: https://github.com/poolsideai
+- type: LinkedIn
+  url: https://www.linkedin.com/company/poolsideai
+- type: Website
+  url: https://poolside.ai/
+- type: Documentation
+  url: https://docs.poolside.ai/
+- type: Plans
+  url: plans/poolside-ai-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/poolside-ai-rate-limits.yml
+- type: FinOps
+  url: finops/poolside-ai-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

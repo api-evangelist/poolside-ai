@@ -1,0 +1,108 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Poolside
+providerId: poolside-ai
+created: '2026-07-02'
+modified: '2026-07-02'
+reconciled: false
+tags:
+- AI
+- Foundation Models
+- Enterprise
+- On-Prem
+- Plans
+description: >-
+  Poolside publishes no public price list, self-serve checkout, or free API
+  tier. The poolside.ai marketing site has no pricing or contact-sales page in
+  its navigation as of this review; engagement runs through direct
+  conversations with Poolside's sales/solutions team, arranged via the
+  "Government" and "Careers" contact surfaces or the company's own outreach.
+  What is publicly documented is the delivery model, not the price: a full
+  stack of models, agents, APIs, and applications deployed into infrastructure
+  the customer controls (AWS, Azure, Google Cloud VPC, or fully on-prem /
+  air-gapped), either on Poolside-pre-provisioned hardware (a single node
+  supporting hundreds of developers) or on the customer's own NVIDIA GPU
+  cluster installed via Helm. The one channel that is genuinely self-serve is
+  third-party: Poolside's smaller open-weight model, Laguna XS 2.1, can be
+  called through OpenRouter's own usage-based, pay-as-you-go pricing, which is
+  OpenRouter's plan, not Poolside's.
+notes: >-
+  No numeric commercial pricing is reconciled here because none is published.
+  If Poolside later ships a self-serve tier or public price list, revisit this
+  file against the live pricing page.
+sources:
+- https://poolside.ai/
+- https://poolside.ai/enterprise
+- https://docs.poolside.ai/
+- https://openrouter.ai/poolside
+plans:
+- id: poolside-enterprise-cloud
+  name: Enterprise - Cloud VPC
+  type: enterprise
+  description: >-
+    Poolside deployed into the customer's own AWS, Azure, or Google Cloud
+    account/VPC, with full model weights delivered into that environment.
+    Engagement and pricing are negotiated directly with Poolside.
+  entries:
+  - label: Enterprise Cloud Agreement
+    name: enterprise_cloud
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Chat Completions API
+  - name: Identity Management / SCIM API
+  - name: Poolside Console
+- id: poolside-enterprise-on-prem
+  name: Enterprise - On-Prem / Air-Gapped
+  type: enterprise
+  description: >-
+    Poolside installed on customer-owned NVIDIA GPU infrastructure via Helm,
+    or on Poolside-pre-provisioned hardware, including fully air-gapped
+    configurations with no external network dependency. Pricing depends on
+    hardware, support, and scale and is negotiated directly with Poolside.
+  entries:
+  - label: Enterprise On-Prem Agreement
+    name: enterprise_on_prem
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Air-Gapped Deployment
+  - name: Pre-Provisioned Hardware Option
+  - name: Customer GPU Cluster (Helm)
+- id: poolside-openrouter-laguna-xs
+  name: Laguna XS 2.1 via OpenRouter (Third-Party)
+  type: usage
+  description: >-
+    Not a Poolside plan - OpenRouter's own usage-based pricing for calling
+    Poolside's open-weight Laguna XS 2.1 model through OpenRouter's unified
+    API. Included here because it is the only publicly self-serve way to call
+    a Poolside model over HTTP without a Poolside sales engagement.
+  entries:
+  - label: Per-Token Usage (OpenRouter)
+    name: openrouter_usage
+    type: usage
+    metric: tokens
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: see openrouter.ai/poolside for current per-token rates
+    userMultiplied: false
+  elements:
+  - name: Hosted by OpenRouter, Not Poolside
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,123 @@
+aid: poolside-ai
+name: Poolside
+review:
+  question: Does Poolside expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-02'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Poolside's documented API surface
+    (OpenAI-compatible chat/completions/models, plus the Identity Management
+    and SCIM APIs) is request/response REST over HTTPS, with streaming (for
+    chat completions) delivered as chunked HTTP response bodies per the
+    OpenAI-compatible convention rather than Server-Sent Events or WebSocket.
+    There is no server-push transport on Poolside's own API to model, and no
+    shared public host to point an AsyncAPI server object at in the first
+    place (see findings below).
+findings:
+  summary: |
+    Poolside does not publish a documented public WebSocket API - and more
+    fundamentally, Poolside does not run a shared public API host at all in
+    the way OpenAI, Anthropic, or Groq do. Poolside publishes a full, public
+    API reference at docs.poolside.ai describing three REST surfaces - an
+    OpenAI-compatible inference API (/openai/v1), an admin/Identity
+    Management API (/poolside/v1), and a SCIM 2.0 provisioning endpoint
+    (/scim) - but Poolside's own documentation states the base URL "is
+    configured per deployment: https://<api-domain>". The API only comes
+    alive once a customer has a provisioned Poolside deployment inside their
+    own AWS/Azure/Google Cloud VPC, on a customer-owned NVIDIA GPU cluster
+    installed via Helm, or fully air-gapped on-prem. There is no public
+    signup page, no published pricing, and no free/self-serve tier on
+    poolside.ai; the fetched OpenAPI document itself (api.poolsi.de/openai/
+    openapi.json) has no "servers" field, confirming the spec is a template
+    shared across deployments rather than a pointer to one live host. No
+    realtime, bidirectional, or streaming WebSocket (ws:// or wss://)
+    endpoint is documented anywhere in the reference. The one genuinely
+    public, self-serve way to call a Poolside model over HTTP is third-party:
+    Poolside's smaller open-weight model, Laguna XS 2.1, is listed on
+    OpenRouter (openrouter.ai/poolside) and callable through OpenRouter's own
+    REST API and pricing - that is OpenRouter's surface, not Poolside's.
+  gatingModel: |
+    Poolside is best understood as an enterprise/on-prem AI platform vendor
+    that happens to publish excellent, fully public API reference docs for
+    its own product, rather than as a self-serve API company. Access to a
+    live baseURL requires a commercial deployment arranged directly with
+    Poolside; there is nothing to sign up for on the open web.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: 'https://<api-domain> (customer-specific; not a shared public host)'
+      documented: true
+      note: OpenAI-compatible inference API under /openai/v1, plus /poolside/v1 (admin) and /scim (identity provisioning). Base URL is assigned per customer deployment.
+    - protocol: Chunked HTTP Streaming
+      scheme: https
+      documented: true
+      note: Chat completions support streaming responses per the OpenAI-compatible convention (chunked HTTP), not WebSocket or labeled SSE in the docs reviewed.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Poolside's API reference, console docs, or on-prem deployment guide as of the review date.
+  endpointsConfirmedRest:
+    - POST /openai/v1/chat/completions
+    - POST /openai/v1/completions (legacy)
+    - GET  /openai/v1/models
+    - GET  /poolside/v1/users
+    - GET  /poolside/v1/users/{user-id}
+    - POST /poolside/v1/users
+    - POST /poolside/v1/teams/{team-id}/members/add
+    - POST /poolside/v1/teams/{team-id}/members/remove
+    - POST /poolside/v1/teams/{team-id}/members/set
+    - SCIM 2.0 provisioning under /scim (exact resource paths not itemized in docs reviewed)
+sources:
+  - url: https://poolside.ai/
+    type: Website
+    note: Homepage lists Laguna XS 2.1 (33B/3B active, on-device) and Laguna M.1 (225B/23B active, "available via API"); no pricing or contact-sales link in nav; "Download & pool" CLI and "Use on OpenRouter" are the only self-serve action links.
+  - url: https://poolside.ai/enterprise
+    type: Website
+    note: Describes the enterprise delivery model - models/agents/APIs/applications deployed into customer-controlled AWS/Azure/Google/on-prem infrastructure; pre-provisioned hardware (single node, hundreds of developers, air-gap capable) or customer GPU clusters via Helm.
+  - url: https://docs.poolside.ai/
+    type: Documentation
+    note: Public docs home; describes Poolside as "a secure, enterprise-grade AI platform for software engineering, designed to run entirely within your infrastructure."
+  - url: https://docs.poolside.ai/api/overview
+    type: APIReference
+    note: Documents the three API surfaces (/openai/v1, /poolside/v1, /scim) and states the base URL is configured per deployment.
+  - url: https://docs.poolside.ai/api/authentication
+    type: Documentation
+    note: API key creation assumes "You can access your Poolside deployment" (developer keys) or a tenant-admin role (service account keys) - i.e., an existing customer, not public signup.
+  - url: https://docs.poolside.ai/openai-api/chat/create-chat-completion
+    type: APIReference
+    note: POST /openai/v1/chat/completions, OpenAI-compatible request/response shape.
+  - url: https://docs.poolside.ai/openai-api/chat/create-completion
+    type: APIReference
+    note: Legacy POST /openai/v1/completions, marked deprecated.
+  - url: https://docs.poolside.ai/openai-api/models/list-models
+    type: APIReference
+    note: GET /openai/v1/models.
+  - url: https://docs.poolside.ai/organization/identity-management-api
+    type: APIReference
+    note: /poolside/v1 admin API for user and team management, alternative/complement to SCIM.
+  - url: https://docs.poolside.ai/console/models
+    type: Documentation
+    note: Console lets admins set a custom "Base URL for the model endpoint" per connected model - further confirming there is no single fixed public host.
+  - url: https://docs.poolside.ai/deployment/on-prem/admin
+    type: Documentation
+    note: On-prem admin toolkit references Kubernetes namespaces (poolside, poolside-models, poolside-services), Helm-based install, and cert-manager TLS - operational evidence of a self-hosted, per-customer deployment model.
+  - url: https://api.poolsi.de/openai/openapi.json
+    type: OpenAPI
+    note: 'Fetched and reviewed directly: OpenAPI 3.1.0, title "OpenAI Compatible API", version 1.0.0, no "servers" field, 3 paths (chat/completions, completions, models). Saved locally at openapi/poolside-ai-openapi.json.'
+  - url: https://openrouter.ai/poolside
+    type: Documentation
+    note: Third-party public listing of Poolside's open-weight Laguna models with OpenRouter's own API access and pricing - not a Poolside-run endpoint.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, and Poolside's own documented API is
+    request/response REST that only resolves to a live host inside a
+    customer's provisioned deployment. apis.yml documents the real,
+    OpenAI-compatible and admin/SCIM endpoints from docs.poolside.ai with a
+    baseURL of "https://<api-domain>" - matching Poolside's own placeholder
+    language for its per-deployment base URL - rather than inventing a shared
+    public host that does not exist. No AsyncAPI document was created because
+    there is no server-push transport on Poolside's own API to model.

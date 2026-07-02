@@ -1,0 +1,86 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Poolside
+providerId: poolside-ai
+created: '2026-07-02'
+modified: '2026-07-02'
+reconciled: false
+tags:
+- AI
+- Foundation Models
+- Enterprise
+- On-Prem
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Poolside spend. Because Poolside has no public price list,
+  the dominant cost driver is a negotiated enterprise contract covering either
+  a Cloud VPC deployment (AWS/Azure/Google) or an on-prem/air-gapped
+  deployment (Poolside-pre-provisioned hardware or the customer's own NVIDIA
+  GPU cluster via Helm), plus the underlying infrastructure spend for whichever
+  path is chosen. There is no per-token metered invoice from Poolside itself
+  to reconcile against FOCUS the way there is for a shared multi-tenant model
+  API. The one metered, FOCUS-friendly cost surface tied to a Poolside model is
+  third-party: calling the open-weight Laguna XS 2.1 model through OpenRouter,
+  which bills per token under OpenRouter's own invoice, not Poolside's.
+notes: >-
+  Revisit this file if Poolside ships a public, metered API tier. Until then,
+  cost governance is a hardware/contract-sizing exercise done directly with
+  Poolside's sales team, and infrastructure cost tracking (GPU-hours, storage,
+  network) for the customer-controlled deployment.
+sources:
+- https://poolside.ai/enterprise
+- https://docs.poolside.ai/deployment/on-prem/admin
+- https://openrouter.ai/poolside
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Poolside
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Contract-Based
+  billingFrequency: Custom
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+meters:
+- name: enterprise_contract
+  description: Negotiated annual/multi-year enterprise agreement for a Poolside deployment (Cloud VPC or on-prem/air-gapped). No published unit price.
+  unit: contract
+  aggregation: sum
+  dimensions:
+  - account
+  - deployment
+- name: deployment_infrastructure
+  description: Underlying GPU compute, storage, and network cost of running the customer-controlled Poolside deployment (cloud instances or owned hardware).
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - deployment
+  - provider
+- name: openrouter_laguna_tokens
+  description: Tokens billed by OpenRouter (third party) when calling Poolside's open-weight Laguna XS 2.1 model through OpenRouter's API rather than a Poolside deployment.
+  unit: tokens
+  aggregation: sum
+  dimensions:
+  - account
+  - model
+principles:
+- name: Visibility
+  description: Track the enterprise contract terms and the separate infrastructure bill (cloud VPC spend or owned GPU hardware amortization) for the Poolside deployment.
+- name: Allocation
+  description: Attribute deployment infrastructure cost to the team(s) or environment(s) the Poolside deployment serves, since Poolside itself does not meter per-team usage centrally.
+- name: Optimization
+  description: Right-size GPU capacity against the "hundreds of developers per node" reference point Poolside publishes, and evaluate OpenRouter's metered Laguna XS 2.1 access for lightweight/evaluation workloads before committing to a full deployment.
+- name: Accountability
+  description: Assign a named contract owner for the Poolside enterprise agreement and a named infrastructure owner for the deployment, since no self-serve billing dashboard exists.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
