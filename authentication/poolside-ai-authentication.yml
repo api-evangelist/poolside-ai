@@ -1,0 +1,12 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/poolside-ai-openapi.json
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/poolside-ai-openapi.json

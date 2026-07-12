@@ -133,6 +133,12 @@ apis:
     provider (Okta, Entra ID, etc.) to automatically provision and deprovision
     Poolside users on a deployment.
 common:
+- type: TrustCenter
+  url: security/poolside-ai-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/poolside-ai-vulnerability-disclosure.yml
+- type: Authentication
+  url: authentication/poolside-ai-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/poolsideai
 - type: LinkedIn
@@ -147,6 +153,8 @@ common:
   url: rate-limits/poolside-ai-rate-limits.yml
 - type: FinOps
   url: finops/poolside-ai-finops.yml
+- url: https://poolside.ai/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
