@@ -1,0 +1,58 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/poolside-ai-openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 3
+  by_action_class:
+    acting: 2
+    connected: 1
+  by_consequence:
+    write: 2
+    read: 1
+  human_in_the_loop_required: 0
+operations:
+- path: /openai/v1/chat/completions
+  method: post
+  operationId: create-chat-completion
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /openai/v1/completions
+  method: post
+  operationId: create-completion
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /openai/v1/models
+  method: get
+  operationId: list-models
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

@@ -133,6 +133,8 @@ apis:
     provider (Okta, Entra ID, etc.) to automatically provision and deprovision
     Poolside users on a deployment.
 common:
+- type: AgenticAccess
+  url: agentic-access/poolside-ai-agentic-access.yml
 - type: TrustCenter
   url: security/poolside-ai-trust-center.yml
 - type: VulnerabilityDisclosure
