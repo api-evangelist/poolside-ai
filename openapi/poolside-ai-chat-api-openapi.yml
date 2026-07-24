@@ -1,0 +1,443 @@
+openapi: 3.1.0
+info:
+  title: OpenAI Compatible chat API
+  version: 1.0.0
+tags:
+- name: chat
+paths:
+  /openai/v1/chat/completions:
+    post:
+      description: Generates a response based on a list of messages sent by the user to the model. The list of messages may include system messages, user messages, and assistant messages.<br/><br/>This endpoint allows other tools in the developer ecosystem to leverage poolside as a drop-in replacement for other models.
+      operationId: create-chat-completion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateChatCompletionBody'
+          application/octet-stream:
+            schema:
+              contentMediaType: application/octet-stream
+              format: binary
+              type: string
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletion'
+            text/event-stream:
+              schema:
+                description: Server-Sent Events stream.
+                items:
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ChatCompletion'
+                  required:
+                  - data
+                  type: object
+                title: Server Sent Events
+                type: array
+          description: Successful response - JSON when stream=false, SSE when stream=true
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1PromptModelError'
+          description: Bad Request
+      security:
+      - bearerAuth: []
+      summary: Create chat completion
+      tags:
+      - chat
+  /openai/v1/completions:
+    post:
+      deprecated: true
+      description: Get a completion along with the probabilities of alternative tokens at each position. This endpoint is not recommended for new use cases and is maintained for legacy compatibility only.<br/><br/>Use <i>/chat/completions</i> instead for the best and newest models.
+      operationId: create-completion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCompletionBody'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Completion'
+            text/event-stream:
+              schema:
+                description: Server-Sent Events stream.
+                items:
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/Completion'
+                  required:
+                  - data
+                  type: object
+                title: Server Sent Events
+                type: array
+          description: Successful response - JSON when stream=false, SSE when stream=true
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1PromptModelError'
+          description: Bad Request
+      security:
+      - bearerAuth: []
+      summary: Create completion
+      tags:
+      - chat
+components:
+  schemas:
+    CreateChatCompletionBody:
+      additionalProperties: true
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+          - https://example.com/openai/schemas/CreateChatCompletionBody.json
+          format: uri
+          readOnly: true
+          type: string
+        model:
+          description: The model to use for the completion.
+          type: string
+        stream:
+          description: If true, the response will be streamed as a series of events instead of a single JSON object.
+          type: boolean
+        stream_options:
+          $ref: '#/components/schemas/StreamOptions'
+          description: 'Options for streaming response. Only set this when you set stream: true.'
+      required:
+      - model
+      type: object
+    CompletionUsage:
+      additionalProperties: true
+      properties:
+        completion_tokens:
+          description: Number of tokens in the completion.
+          format: int64
+          type: integer
+        prompt_tokens:
+          description: Number of tokens in the prompt.
+          format: int64
+          type: integer
+        total_tokens:
+          description: Total number of tokens used in the request 'prompt + completion'.
+          format: int64
+          type: integer
+      required:
+      - completion_tokens
+      - prompt_tokens
+      - total_tokens
+      type: object
+    CompletionChoice:
+      additionalProperties: true
+      properties:
+        finish_reason:
+          description: The reason the model stopped generating tokens.
+          type: string
+        index:
+          description: The index of the choice in the list of choices.
+          format: int64
+          type: integer
+        text:
+          description: The generated text.
+          type: string
+      required:
+      - text
+      - index
+      - finish_reason
+      type: object
+    ErrorDetail:
+      additionalProperties: true
+      properties:
+        location:
+          description: Where the error occurred, e.g. 'body.items[3].tags' or 'path.thing-id'
+          type: string
+        message:
+          description: Error message text
+          type: string
+        value:
+          description: The value at the given location
+      type: object
+    Completion:
+      additionalProperties: true
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+          - https://example.com/openai/schemas/Completion.json
+          format: uri
+          readOnly: true
+          type: string
+        choices:
+          description: The list of completion choices.
+          items:
+            $ref: '#/components/schemas/CompletionChoice'
+          type: array
+        created:
+          description: The Unix timestamp (in seconds) of when the completion was created.
+          format: int64
+          type: integer
+        model:
+          description: The model used for the completion.
+          type: string
+        object:
+          description: The object type, which is always 'text_completion'.
+          type: string
+        usage:
+          $ref: '#/components/schemas/CompletionUsage'
+          description: Usage statistics for the completion request.
+      required:
+      - object
+      - created
+      - model
+      - choices
+      type: object
+    CreateCompletionBody:
+      additionalProperties: true
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+          - https://example.com/openai/schemas/CreateCompletionBody.json
+          format: uri
+          readOnly: true
+          type: string
+        cache_control:
+          additionalProperties: {}
+          description: Anthropic-style prompt-cache marker, forwarded verbatim to the upstream provider.
+          type: object
+        include_stop_str_in_output:
+          description: Whether to include the stop strings in output text. Defaults to false.
+          type: boolean
+        max_completion_tokens:
+          description: The maximum number of tokens to generate in the completion.
+          format: int64
+          type: integer
+        max_tokens:
+          description: The maximum number of tokens to generate in the completion.
+          format: int64
+          type: integer
+        min_p:
+          description: Sets a minimum probability threshold relative to the most likely token.
+          format: double
+          maximum: 1
+          minimum: 0
+          type: number
+        model:
+          description: The model to use for the completion.
+          type: string
+        prompt:
+          description: The prompt to generate completions for.
+          type: string
+        return_tokens_as_token_ids:
+          description: Whether to return the generated tokens as token IDs instead of text. Defaults to false.
+          type: boolean
+        seed:
+          description: If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed.
+          format: int64
+          type: integer
+        skip_special_tokens:
+          description: Whether to skip special tokens in the output.
+          type: boolean
+        stop:
+          description: An array of sequences where the API will stop generating further tokens.
+          items:
+            type: string
+          type: array
+        stream:
+          description: If true, the response will be streamed as a series of events instead of a single JSON object.
+          type: boolean
+        stream_options:
+          $ref: '#/components/schemas/StreamOptions'
+          description: 'Options for streaming response. Only set this when you set stream: true.'
+        temperature:
+          description: What sampling temperature to use, between 0 and 2.
+          format: double
+          maximum: 2
+          minimum: 0
+          type: number
+        top_k:
+          description: Limits the model to consider only the top K most likely tokens at each step.
+          format: int64
+          type: integer
+        top_p:
+          description: An alternative to sampling with temperature, called nucleus sampling.
+          exclusiveMinimum: 0
+          format: double
+          maximum: 1
+          type: number
+      required:
+      - prompt
+      - model
+      type: object
+    V1PromptModelError:
+      additionalProperties: true
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+          - https://example.com/openai/schemas/V1PromptModelError.json
+          format: uri
+          readOnly: true
+          type: string
+        code:
+          enum:
+          - max-tokens-exceeded
+          - model-not-found
+          type: string
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          examples:
+          - Property foo is required but is missing.
+          type: string
+        errors:
+          description: Optional list of individual error details
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        instance:
+          description: A URI reference that identifies the specific occurrence of the problem.
+          examples:
+          - https://example.com/error-log/abc123
+          format: uri
+          type: string
+        status:
+          description: HTTP status code
+          examples:
+          - 400
+          format: int64
+          type: integer
+        title:
+          description: A short, human-readable summary of the problem type. This value should not change between occurrences of the error.
+          examples:
+          - Bad Request
+          type: string
+        type:
+          default: about:blank
+          description: A URI reference to human-readable documentation for the error.
+          examples:
+          - https://example.com/errors/example
+          format: uri
+          type: string
+      type: object
+    ChatCompletionMessage:
+      additionalProperties: true
+      properties:
+        content:
+          description: The text content of the message. Can be either a string or an array of content parts.
+        role:
+          description: The role of the author of this message.
+          enum:
+          - user
+          - assistant
+          - system
+          - tool
+          type: string
+        tool_call_id:
+          description: Identifies the tool call this message relates to, used for 'tool' role messages
+          type: string
+        tool_calls:
+          items:
+            $ref: '#/components/schemas/ToolCall'
+          type: array
+      type: object
+    StreamOptions:
+      additionalProperties: true
+      properties:
+        include_usage:
+          description: Whether to include usage statistics in the stream response.
+          type: boolean
+      type: object
+    FunctionCall:
+      additionalProperties: true
+      properties:
+        arguments:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - arguments
+      type: object
+    ChatCompletion:
+      additionalProperties: true
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+          - https://example.com/openai/schemas/ChatCompletion.json
+          format: uri
+          readOnly: true
+          type: string
+        choices:
+          description: A list of chat completions from the model.
+          items:
+            $ref: '#/components/schemas/ChatCompletionChoice'
+          minItems: 1
+          type: array
+        created:
+          description: The Unix timestamp (in seconds) when the completion was created.
+          format: int64
+          type: integer
+        model:
+          description: The model used for the chat completion.
+          type: string
+        object:
+          description: The object type 'chat.completion' or ''chat.completion.chunk'
+          type: string
+        usage:
+          $ref: '#/components/schemas/CompletionUsage'
+          description: Usage statistics for the chat completion.
+      required:
+      - model
+      - created
+      - object
+      - choices
+      type: object
+    ToolCall:
+      additionalProperties: true
+      properties:
+        function:
+          $ref: '#/components/schemas/FunctionCall'
+        id:
+          description: The ID of the tool call.
+          type: string
+        type:
+          enum:
+          - function
+          type: string
+      required:
+      - type
+      - function
+      type: object
+    ChatCompletionChoice:
+      additionalProperties: true
+      properties:
+        delta:
+          $ref: '#/components/schemas/ChatCompletionMessage'
+          description: The chat completion message when streaming.
+        finish_reason:
+          description: The reason the model stopped generating tokens. 'stop' the model hit a stop point, 'length' the maximum number of tokens was reached, 'content_filter' content was avoided due to filtering.
+          type: string
+        index:
+          description: The index of the choice in the list of choices.
+          format: int64
+          type: integer
+        message:
+          $ref: '#/components/schemas/ChatCompletionMessage'
+          description: The chat completion message when not streaming.
+      required:
+      - index
+      - finish_reason
+      type: object
+  securitySchemes:
+    bearerAuth:
+      scheme: bearer
+      type: http
