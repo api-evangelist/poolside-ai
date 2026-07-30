@@ -17,7 +17,20 @@ description: >-
   open-weight model, Laguna XS 2.1, can be called by anyone through
   third-party inference hosts such as OpenRouter, which is the closest thing
   to a public, self-serve way to hit a Poolside model over HTTP.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/poolside-ai.png
 tags:
 - AI
 - LLM
@@ -31,67 +44,6 @@ created: '2026-07-02'
 modified: '2026-07-02'
 specificationVersion: '0.19'
 apis:
-- aid: poolside-ai:poolside-chat-completions-api
-  name: Poolside Chat Completions API
-  tags:
-  - Chat
-  - Completions
-  - LLM
-  - OpenAI Compatible
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.poolside.ai/openai-api/chat/create-chat-completion
-  baseURL: https://<api-domain>/openai/v1
-  properties:
-  - url: https://docs.poolside.ai/api/overview
-    type: Documentation
-  - url: https://docs.poolside.ai/openai-api/chat/create-chat-completion
-    type: APIReference
-  - url: https://docs.poolside.ai/api/openai-api-examples
-    type: Documentation
-  - url: openapi/poolside-ai-openapi.json
-    type: OpenAPI
-  description: >-
-    OpenAI-compatible chat completions endpoint (POST /openai/v1/chat/completions)
-    serving Poolside's Laguna models, including streaming responses. The base
-    URL is not a shared public host - it is configured per customer deployment,
-    per Poolside's own documentation ("The base URL is configured per
-    deployment: https://<api-domain>").
-- aid: poolside-ai:poolside-completions-api
-  name: Poolside Completions API (Legacy)
-  tags:
-  - Completions
-  - Legacy
-  - OpenAI Compatible
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.poolside.ai/openai-api/chat/create-completion
-  baseURL: https://<api-domain>/openai/v1
-  properties:
-  - url: https://docs.poolside.ai/openai-api/chat/create-completion
-    type: APIReference
-  - url: openapi/poolside-ai-openapi.json
-    type: OpenAPI
-  description: >-
-    Legacy token-completion endpoint (POST /openai/v1/completions), documented
-    as deprecated in favor of chat completions but still published in
-    Poolside's OpenAI-compatible OpenAPI spec.
-- aid: poolside-ai:poolside-models-api
-  name: Poolside Models API
-  tags:
-  - Models
-  - Catalog
-  - OpenAI Compatible
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.poolside.ai/openai-api/models/list-models
-  baseURL: https://<api-domain>/openai/v1
-  properties:
-  - url: https://docs.poolside.ai/openai-api/models/list-models
-    type: APIReference
-  - url: openapi/poolside-ai-openapi.json
-    type: OpenAPI
-  description: >-
-    Lists the models available on a given Poolside deployment (GET
-    /openai/v1/models), returning id, owned_by, and created fields per model
-    in an OpenAI-compatible page format.
 - aid: poolside-ai:poolside-identity-management-api
   name: Poolside Identity Management API
   tags:
@@ -112,10 +64,9 @@ apis:
   - url: https://docs.poolside.ai/poolside-api/user/create-user
     type: APIReference
   description: >-
-    Poolside's own admin API (/poolside/v1) for automating user and team
-    administration on a deployment - create/get/update/delete users, and
-    add, remove, or replace team membership - as an alternative or complement
-    to SCIM. Requires a service account API key created by a tenant-admin.
+    Poolside's own admin API (/poolside/v1) for automating user and team administration on a deployment
+    - create/get/update/delete users, and add, remove, or replace team membership - as an alternative
+    or complement to SCIM. Requires a service account API key created by a tenant-admin.
 - aid: poolside-ai:poolside-scim-api
   name: Poolside SCIM API
   tags:
@@ -129,9 +80,48 @@ apis:
   - url: https://docs.poolside.ai/api/overview
     type: Documentation
   description: >-
-    SCIM 2.0 provisioning endpoint (/scim) for connecting an external identity
-    provider (Okta, Entra ID, etc.) to automatically provision and deprovision
-    Poolside users on a deployment.
+    SCIM 2.0 provisioning endpoint (/scim) for connecting an external identity provider (Okta, Entra ID,
+    etc.) to automatically provision and deprovision Poolside users on a deployment.
+- aid: poolside-ai:poolside-ai-chat-api
+  name: Poolside chat API
+  description: The chat API from Poolside — 2 operation(s) for chat.
+  humanURL: https://docs.poolside.ai/openai-api/chat/create-chat-completion
+  baseURL: https://<api-domain>/openai/v1
+  tags:
+  - chat
+  properties:
+  - type: OpenAPI
+    url: openapi/poolside-ai-chat-api-openapi.yml
+  - type: Documentation
+    url: https://docs.poolside.ai/api/overview
+  - type: APIReference
+    url: https://docs.poolside.ai/openai-api/chat/create-chat-completion
+  - type: Documentation
+    url: https://docs.poolside.ai/api/openai-api-examples
+  - type: APIReference
+    url: https://docs.poolside.ai/openai-api/chat/create-completion
+  - type: APIReference
+    url: https://docs.poolside.ai/openai-api/models/list-models
+- aid: poolside-ai:poolside-ai-models-api
+  name: Poolside models API
+  description: The models API from Poolside — 1 operation(s) for models.
+  humanURL: https://docs.poolside.ai/openai-api/chat/create-chat-completion
+  baseURL: https://<api-domain>/openai/v1
+  tags:
+  - models
+  properties:
+  - type: OpenAPI
+    url: openapi/poolside-ai-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.poolside.ai/api/overview
+  - type: APIReference
+    url: https://docs.poolside.ai/openai-api/chat/create-chat-completion
+  - type: Documentation
+    url: https://docs.poolside.ai/api/openai-api-examples
+  - type: APIReference
+    url: https://docs.poolside.ai/openai-api/chat/create-completion
+  - type: APIReference
+    url: https://docs.poolside.ai/openai-api/models/list-models
 common:
 - type: AgenticAccess
   url: agentic-access/poolside-ai-agentic-access.yml
