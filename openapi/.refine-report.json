@@ -1,0 +1,16 @@
+{
+  "provider": "poolside-ai",
+  "sources": [
+    "poolside-ai-chat-api-openapi.yml",
+    "poolside-ai-models-api-openapi.yml"
+  ],
+  "outputs": [
+    "poolside-ai-chat-api-openapi.yml",
+    "poolside-ai-models-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
