@@ -1,0 +1,363 @@
+{
+  "item": [
+    {
+      "id": "4ea51185-3b3c-4c77-8a42-c756d6f9e390",
+      "name": "chat",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "48bf35b4-93b1-457a-a0f3-abd835e976da",
+          "name": "Create chat completion",
+          "request": {
+            "name": "Create chat completion",
+            "description": {
+              "content": "Generates a response based on a list of messages sent by the user to the model. The list of messages may include system messages, user messages, and assistant messages.<br/><br/>This endpoint allows other tools in the developer ecosystem to leverage poolside as a drop-in replacement for other models.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "openai",
+                "v1",
+                "chat",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": \"<boolean>\",\n    \"key_0\": 4369.882567801463,\n    \"key_1\": 7926.25378682471,\n    \"key_2\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "69f603a2-671f-44e0-a654-344347e67371",
+              "name": "Successful response - JSON when stream=false, SSE when stream=true",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "openai",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": true,\n    \"key_0\": 8394,\n    \"key_1\": \"string\",\n    \"key_2\": 2082,\n    \"key_3\": 2683\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model\": \"string\",\n  \"created\": 5572,\n  \"object\": \"string\",\n  \"choices\": [\n    {\n      \"index\": 3728,\n      \"finish_reason\": \"string\",\n      \"delta\": {\n        \"content\": {},\n        \"role\": \"user\",\n        \"tool_call_id\": \"string\",\n        \"tool_calls\": [\n          {\n            \"type\": \"function\",\n            \"function\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"function\",\n            \"function\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"string\"\n          }\n        ]\n      },\n      \"message\": {\n        \"content\": {},\n        \"role\": \"user\",\n        \"tool_call_id\": \"string\",\n        \"tool_calls\": [\n          {\n            \"type\": \"function\",\n            \"function\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"function\",\n            \"function\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"$schema\": \"https://example.com/openai/schemas/ChatCompletion.json\",\n  \"usage\": {\n    \"completion_tokens\": 2893,\n    \"prompt_tokens\": 6163,\n    \"total_tokens\": 2127\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "975f504c-6f53-4c5d-be5b-2bcf9048da32",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "openai",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": true,\n    \"key_0\": 8394,\n    \"key_1\": \"string\",\n    \"key_2\": 2082,\n    \"key_3\": 2683\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"$schema\": \"https://example.com/openai/schemas/V1PromptModelError.json\",\n  \"code\": \"max-tokens-exceeded\",\n  \"detail\": \"Property foo is required but is missing.\",\n  \"errors\": [\n    {\n      \"location\": \"string\",\n      \"message\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"location\": \"string\",\n      \"message\": \"string\",\n      \"value\": {},\n      \"key_0\": 944\n    }\n  ],\n  \"instance\": \"https://example.com/error-log/abc123\",\n  \"status\": 400,\n  \"title\": \"Bad Request\",\n  \"type\": \"https://example.com/errors/example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b454334-ca52-433d-9707-889f699d10f0",
+          "name": "Create completion",
+          "request": {
+            "name": "Create completion",
+            "description": {
+              "content": "Get a completion along with the probabilities of alternative tokens at each position. This endpoint is not recommended for new use cases and is maintained for legacy compatibility only.<br/><br/>Use <i>/chat/completions</i> instead for the best and newest models.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "openai",
+                "v1",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"cache_control\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  },\n  \"include_stop_str_in_output\": \"<boolean>\",\n  \"max_completion_tokens\": \"<long>\",\n  \"max_tokens\": \"<long>\",\n  \"min_p\": \"<double>\",\n  \"return_tokens_as_token_ids\": \"<boolean>\",\n  \"seed\": \"<long>\",\n  \"skip_special_tokens\": \"<boolean>\",\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": \"<boolean>\",\n    \"key_0\": 689.8627068549923,\n    \"key_1\": \"string\",\n    \"key_2\": 9927.19880275287\n  },\n  \"temperature\": \"<double>\",\n  \"top_k\": \"<long>\",\n  \"top_p\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a4a8225c-d588-4b63-8b7e-e60ea871b594",
+              "name": "Successful response - JSON when stream=false, SSE when stream=true",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "openai",
+                    "v1",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"cache_control\": {\n    \"key_0\": {}\n  },\n  \"include_stop_str_in_output\": \"<boolean>\",\n  \"max_completion_tokens\": \"<long>\",\n  \"max_tokens\": \"<long>\",\n  \"min_p\": \"<double>\",\n  \"return_tokens_as_token_ids\": \"<boolean>\",\n  \"seed\": \"<long>\",\n  \"skip_special_tokens\": \"<boolean>\",\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": true,\n    \"key_0\": 3004.2194530453103,\n    \"key_1\": true\n  },\n  \"temperature\": \"<double>\",\n  \"top_k\": \"<long>\",\n  \"top_p\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"string\",\n  \"created\": 1421,\n  \"model\": \"string\",\n  \"choices\": [\n    {\n      \"text\": \"string\",\n      \"index\": 2604,\n      \"finish_reason\": \"string\"\n    },\n    {\n      \"text\": \"string\",\n      \"index\": 5804,\n      \"finish_reason\": \"string\"\n    }\n  ],\n  \"$schema\": \"https://example.com/openai/schemas/Completion.json\",\n  \"usage\": {\n    \"completion_tokens\": 6813,\n    \"prompt_tokens\": 3536,\n    \"total_tokens\": 1084\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ace10e5a-056a-46e3-8e54-dc7b81cb4139",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "openai",
+                    "v1",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"cache_control\": {\n    \"key_0\": {}\n  },\n  \"include_stop_str_in_output\": \"<boolean>\",\n  \"max_completion_tokens\": \"<long>\",\n  \"max_tokens\": \"<long>\",\n  \"min_p\": \"<double>\",\n  \"return_tokens_as_token_ids\": \"<boolean>\",\n  \"seed\": \"<long>\",\n  \"skip_special_tokens\": \"<boolean>\",\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": true,\n    \"key_0\": 3004.2194530453103,\n    \"key_1\": true\n  },\n  \"temperature\": \"<double>\",\n  \"top_k\": \"<long>\",\n  \"top_p\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"$schema\": \"https://example.com/openai/schemas/V1PromptModelError.json\",\n  \"code\": \"max-tokens-exceeded\",\n  \"detail\": \"Property foo is required but is missing.\",\n  \"errors\": [\n    {\n      \"location\": \"string\",\n      \"message\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"location\": \"string\",\n      \"message\": \"string\",\n      \"value\": {},\n      \"key_0\": 944\n    }\n  ],\n  \"instance\": \"https://example.com/error-log/abc123\",\n  \"status\": 400,\n  \"title\": \"Bad Request\",\n  \"type\": \"https://example.com/errors/example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "25c1a009-4458-4413-b9c6-75fb99872d46",
+    "name": "OpenAI Compatible chat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

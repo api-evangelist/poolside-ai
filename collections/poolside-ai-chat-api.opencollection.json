@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenAI Compatible chat API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create chat completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/openai/v1/chat/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generates a response based on a list of messages sent by the user to the model. The list of messages may include system messages, user messages, and assistant messages.<br/><br/>This endpoint allows other tools in the developer ecosystem to leverage poolside as a drop-in replacement for other models."
+        },
+        {
+          "info": {
+            "name": "Create completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/openai/v1/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a completion along with the probabilities of alternative tokens at each position. This endpoint is not recommended for new use cases and is maintained for legacy compatibility only.<br/><br/>Use <i>/chat/completions</i> instead for the best and newest models."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
