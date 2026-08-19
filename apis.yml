@@ -42,7 +42,7 @@ tags:
 - Open Weights
 created: '2026-07-02'
 modified: '2026-07-02'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: poolside-ai:poolside-identity-management-api
   name: Poolside Identity Management API
