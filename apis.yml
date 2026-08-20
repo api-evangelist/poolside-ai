@@ -32,6 +32,15 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/poolside-ai.png
 tags:
+- Artificial Intelligence
+- LLM
+- Foundation Models
+- Agentic Coding
+- Software Engineering
+- Enterprise
+- On-Prem
+- Open Weights
+tags_raw:
 - AI
 - LLM
 - Foundation Models
@@ -47,6 +56,11 @@ apis:
 - aid: poolside-ai:poolside-identity-management-api
   name: Poolside Identity Management API
   tags:
+  - Admin
+  - Team
+  - User
+  - Identity
+  tags_raw:
   - Admin
   - Teams
   - Users
@@ -88,6 +102,8 @@ apis:
   humanURL: https://docs.poolside.ai/openai-api/chat/create-chat-completion
   baseURL: https://<api-domain>/openai/v1
   tags:
+  - Chat
+  tags_raw:
   - chat
   properties:
   - type: OpenAPI
@@ -108,6 +124,8 @@ apis:
   humanURL: https://docs.poolside.ai/openai-api/chat/create-chat-completion
   baseURL: https://<api-domain>/openai/v1
   tags:
+  - Models
+  tags_raw:
   - models
   properties:
   - type: OpenAPI
