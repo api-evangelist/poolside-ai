@@ -17,6 +17,18 @@ description: >-
   open-weight model, Laguna XS 2.1, can be called by anyone through
   third-party inference hosts such as OpenRouter, which is the closest thing
   to a public, self-serve way to hit a Poolside model over HTTP.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
