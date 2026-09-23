@@ -1,8 +1,7 @@
 {
   "provider": "poolside-ai",
   "sources": [
-    "poolside-ai-chat-api-openapi.yml",
-    "poolside-ai-models-api-openapi.yml"
+    "_original/poolside-ai-openapi.json"
   ],
   "outputs": [
     "poolside-ai-chat-api-openapi.yml",
@@ -11,6 +10,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "poolside-ai-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "poolside-ai-openapi.json: declared missing tag: chat",
+    "poolside-ai-openapi.json: declared missing tag: models",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "poolside-ai-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "poolside-ai-models-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
