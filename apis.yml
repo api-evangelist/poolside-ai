@@ -110,7 +110,7 @@ apis:
     SCIM 2.0 provisioning endpoint (/scim) for connecting an external identity provider (Okta, Entra ID,
     etc.) to automatically provision and deprovision Poolside users on a deployment.
 - aid: poolside-ai:poolside-ai-chat-api
-  name: Poolside chat API
+  name: Poolside Chat API
   description: The chat API from Poolside — 2 operation(s) for chat.
   humanURL: https://docs.poolside.ai/openai-api/chat/create-chat-completion
   baseURL: https://<api-domain>/openai/v1
@@ -132,7 +132,7 @@ apis:
   - type: APIReference
     url: https://docs.poolside.ai/openai-api/models/list-models
 - aid: poolside-ai:poolside-ai-models-api
-  name: Poolside models API
+  name: Poolside Models API
   description: The models API from Poolside — 1 operation(s) for models.
   humanURL: https://docs.poolside.ai/openai-api/chat/create-chat-completion
   baseURL: https://<api-domain>/openai/v1
