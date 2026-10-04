@@ -99,61 +99,17 @@ paths:
       - Chat
 components:
   schemas:
-    ChatCompletion:
+    ErrorDetail:
       additionalProperties: true
       properties:
-        $schema:
-          description: A URL to the JSON Schema for this object.
-          examples:
-          - https://example.com/openai/schemas/ChatCompletion.json
-          format: uri
-          readOnly: true
+        location:
+          description: Where the error occurred, e.g. 'body.items[3].tags' or 'path.thing-id'
           type: string
-        choices:
-          description: A list of chat completions from the model.
-          items:
-            $ref: '#/components/schemas/ChatCompletionChoice'
-          minItems: 1
-          type: array
-        created:
-          description: The Unix timestamp (in seconds) when the completion was created.
-          format: int64
-          type: integer
-        model:
-          description: The model used for the chat completion.
+        message:
+          description: Error message text
           type: string
-        object:
-          description: The object type 'chat.completion' or ''chat.completion.chunk'
-          type: string
-        usage:
-          $ref: '#/components/schemas/CompletionUsage'
-          description: Usage statistics for the chat completion.
-      required:
-      - model
-      - created
-      - object
-      - choices
-      type: object
-    ChatCompletionMessage:
-      additionalProperties: true
-      properties:
-        content:
-          description: The text content of the message. Can be either a string or an array of content parts.
-        role:
-          description: The role of the author of this message.
-          enum:
-          - user
-          - assistant
-          - system
-          - tool
-          type: string
-        tool_call_id:
-          description: Identifies the tool call this message relates to, used for 'tool' role messages
-          type: string
-        tool_calls:
-          items:
-            $ref: '#/components/schemas/ToolCall'
-          type: array
+        value:
+          description: The value at the given location
       type: object
     Completion:
       additionalProperties: true
@@ -196,17 +152,60 @@ components:
           description: Whether to include usage statistics in the stream response.
           type: boolean
       type: object
-    ErrorDetail:
+    ChatCompletion:
       additionalProperties: true
       properties:
-        location:
-          description: Where the error occurred, e.g. 'body.items[3].tags' or 'path.thing-id'
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+          - https://example.com/openai/schemas/ChatCompletion.json
+          format: uri
+          readOnly: true
           type: string
-        message:
-          description: Error message text
+        choices:
+          description: A list of chat completions from the model.
+          items:
+            $ref: '#/components/schemas/ChatCompletionChoice'
+          minItems: 1
+          type: array
+        created:
+          description: The Unix timestamp (in seconds) when the completion was created.
+          format: int64
+          type: integer
+        model:
+          description: The model used for the chat completion.
           type: string
-        value:
-          description: The value at the given location
+        object:
+          description: The object type 'chat.completion' or ''chat.completion.chunk'
+          type: string
+        usage:
+          $ref: '#/components/schemas/CompletionUsage'
+          description: Usage statistics for the chat completion.
+      required:
+      - model
+      - created
+      - object
+      - choices
+      type: object
+    CompletionUsage:
+      additionalProperties: true
+      properties:
+        completion_tokens:
+          description: Number of tokens in the completion.
+          format: int64
+          type: integer
+        prompt_tokens:
+          description: Number of tokens in the prompt.
+          format: int64
+          type: integer
+        total_tokens:
+          description: Total number of tokens used in the request 'prompt + completion'.
+          format: int64
+          type: integer
+      required:
+      - completion_tokens
+      - prompt_tokens
+      - total_tokens
       type: object
     CreateChatCompletionBody:
       additionalProperties: true
@@ -230,52 +229,23 @@ components:
       required:
       - model
       type: object
-    FunctionCall:
+    CompletionChoice:
       additionalProperties: true
       properties:
-        arguments:
+        finish_reason:
+          description: The reason the model stopped generating tokens.
           type: string
-        name:
-          type: string
-      required:
-      - name
-      - arguments
-      type: object
-    ToolCall:
-      additionalProperties: true
-      properties:
-        function:
-          $ref: '#/components/schemas/FunctionCall'
-        id:
-          description: The ID of the tool call.
-          type: string
-        type:
-          enum:
-          - function
-          type: string
-      required:
-      - type
-      - function
-      type: object
-    CompletionUsage:
-      additionalProperties: true
-      properties:
-        completion_tokens:
-          description: Number of tokens in the completion.
+        index:
+          description: The index of the choice in the list of choices.
           format: int64
           type: integer
-        prompt_tokens:
-          description: Number of tokens in the prompt.
-          format: int64
-          type: integer
-        total_tokens:
-          description: Total number of tokens used in the request 'prompt + completion'.
-          format: int64
-          type: integer
+        text:
+          description: The generated text.
+          type: string
       required:
-      - completion_tokens
-      - prompt_tokens
-      - total_tokens
+      - text
+      - index
+      - finish_reason
       type: object
     CreateCompletionBody:
       additionalProperties: true
@@ -355,6 +325,74 @@ components:
       - prompt
       - model
       type: object
+    FunctionCall:
+      additionalProperties: true
+      properties:
+        arguments:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - arguments
+      type: object
+    ChatCompletionMessage:
+      additionalProperties: true
+      properties:
+        content:
+          description: The text content of the message. Can be either a string or an array of content parts.
+        role:
+          description: The role of the author of this message.
+          enum:
+          - user
+          - assistant
+          - system
+          - tool
+          type: string
+        tool_call_id:
+          description: Identifies the tool call this message relates to, used for 'tool' role messages
+          type: string
+        tool_calls:
+          items:
+            $ref: '#/components/schemas/ToolCall'
+          type: array
+      type: object
+    ChatCompletionChoice:
+      additionalProperties: true
+      properties:
+        delta:
+          $ref: '#/components/schemas/ChatCompletionMessage'
+          description: The chat completion message when streaming.
+        finish_reason:
+          description: The reason the model stopped generating tokens. 'stop' the model hit a stop point, 'length' the maximum number of tokens was reached, 'content_filter' content was avoided due to filtering.
+          type: string
+        index:
+          description: The index of the choice in the list of choices.
+          format: int64
+          type: integer
+        message:
+          $ref: '#/components/schemas/ChatCompletionMessage'
+          description: The chat completion message when not streaming.
+      required:
+      - index
+      - finish_reason
+      type: object
+    ToolCall:
+      additionalProperties: true
+      properties:
+        function:
+          $ref: '#/components/schemas/FunctionCall'
+        id:
+          description: The ID of the tool call.
+          type: string
+        type:
+          enum:
+          - function
+          type: string
+      required:
+      - type
+      - function
+      type: object
     V1PromptModelError:
       additionalProperties: true
       properties:
@@ -404,44 +442,6 @@ components:
           - https://example.com/errors/example
           format: uri
           type: string
-      type: object
-    CompletionChoice:
-      additionalProperties: true
-      properties:
-        finish_reason:
-          description: The reason the model stopped generating tokens.
-          type: string
-        index:
-          description: The index of the choice in the list of choices.
-          format: int64
-          type: integer
-        text:
-          description: The generated text.
-          type: string
-      required:
-      - text
-      - index
-      - finish_reason
-      type: object
-    ChatCompletionChoice:
-      additionalProperties: true
-      properties:
-        delta:
-          $ref: '#/components/schemas/ChatCompletionMessage'
-          description: The chat completion message when streaming.
-        finish_reason:
-          description: The reason the model stopped generating tokens. 'stop' the model hit a stop point, 'length' the maximum number of tokens was reached, 'content_filter' content was avoided due to filtering.
-          type: string
-        index:
-          description: The index of the choice in the list of choices.
-          format: int64
-          type: integer
-        message:
-          $ref: '#/components/schemas/ChatCompletionMessage'
-          description: The chat completion message when not streaming.
-      required:
-      - index
-      - finish_reason
       type: object
   securitySchemes:
     bearerAuth:
