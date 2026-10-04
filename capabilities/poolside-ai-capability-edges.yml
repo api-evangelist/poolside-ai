@@ -1,0 +1,25 @@
+slug: poolside-ai
+provider: Poolside
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Chat
+  spec_file: poolside-ai-chat-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /openai/v1/chat/completions  create-chat-completion  Create chat completion
+  reason: LLM inference endpoints are the runtime of an AI model; the closest candidate is Artificial
+    Intelligence Management (AI/ML model lifecycle). Moderate confidence since inference serving is only
+    part of that capability.
