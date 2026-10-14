@@ -44,7 +44,29 @@ edges:
     detected: '2026-10-13'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
+- partner_name: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_match: aggregator
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.visualstudio.com/publishers/poolside-ai
+  listing_count: 1
+  apps:
+  - Poolside Enterprise Assistant
+  publisher_name: poolside
+  badges:
+  - Verified publisher
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 generated: '2026-10-13'
 method: searched
 checked:
+- https://marketplace.visualstudio.com/vscode
 - https://openrouter.ai/api/v1/models
+marketplace_apps: []
+source:
+- https://marketplace.visualstudio.com/vscode
