@@ -62,11 +62,31 @@ edges:
     detected: '2026-10-15'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
+- partner_name: JetBrains (jetbrains-marketplace)
+  partner: jetbrains
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: jetbrains-marketplace
+  evidence: https://plugins.jetbrains.com/vendor/poolside
+  mirror_of: jetbrains/integrations/jetbrains-integration-edges.yml
+  apps:
+  - poolside-assistant
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified vendor
 generated: '2026-10-13'
 method: searched
 checked:
 - https://marketplace.visualstudio.com/vscode
 - https://openrouter.ai/api/v1/models
+- jetbrains/integrations/jetbrains-integration-edges.yml
 marketplace_apps: []
 source:
 - https://marketplace.visualstudio.com/vscode
