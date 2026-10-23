@@ -81,12 +81,39 @@ edges:
   category: IDE / developer extension marketplace listing
   badges:
   - Verified vendor
+- partner_name: Hugging Face (hugging-face-hub)
+  partner: hugging-face
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: hugging-face-hub
+  evidence: https://huggingface.co/poolside
+  mirror_of: hugging-face/integrations/hugging-face-integration-edges.yml
+  apps:
+  - poolside/Laguna-M.1
+  - poolside/Laguna-XS.2
+  - poolside/Laguna-XS-2.1
+  - poolside/Laguna-S-2.1-GGUF
+  - poolside/Laguna-S-2.1
+  - poolside/Laguna-XS-2.1-GGUF
+  - poolside/Laguna-S-2.1-NVFP4
+  - poolside/Laguna-S-2.1-DFlash-NVFP4
+  listing_count: 2
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Hugging Face Hub models
+  badges:
+  - Verified publisher (Hugging Face verified organisation)
 generated: '2026-10-13'
 method: searched
 checked:
 - https://marketplace.visualstudio.com/vscode
 - https://openrouter.ai/api/v1/models
 - jetbrains/integrations/jetbrains-integration-edges.yml
+- hugging-face/integrations/hugging-face-integration-edges.yml
 marketplace_apps: []
 source:
 - https://marketplace.visualstudio.com/vscode
