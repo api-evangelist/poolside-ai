@@ -1,4 +1,4 @@
-# Poolside (poolside-ai)
+# Poolside
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,63 +66,120 @@
 
 Poolside is an AI foundation model lab (founded 2023 by former GitHub CTO Jason Warner and Eiso Kant) building open-weight foundation models - the Laguna family - purpose-built for agentic software engineering. Poolside does not run a shared public SaaS API the way OpenAI or Groq do. Instead it publishes a full, public API reference (docs.poolside.ai) for an OpenAI-compatible inference API plus an admin/identity API, but the API itself only comes alive once a customer has a provisioned Poolside deployment - into their own AWS/Azure/Google Cloud VPC, on customer-owned NVIDIA GPU clusters via Helm, or fully air-gapped on-prem. There is no public signup page, free tier, or published pricing; access is arranged directly with Poolside's sales team. Separately, Poolside's smaller open-weight model, Laguna XS 2.1, can be called by anyone through third-party inference hosts such as OpenRouter, which is the closest thing to a public, self-serve way to hit a Poolside model over HTTP.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/poolside-ai/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/poolside-ai/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · LLM · Foundation Models · Agentic Coding · Software Engineering · Enterprise · On-Prem · Open Weights
 
-## Does Poolside have a public API?
+## Poolside on APIs.io
 
-Not a self-serve one. This is a more nuanced case than most entries in this catalog:
+Everything profiled for Poolside is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/poolside-ai/](https://apis.io/providers/poolside-ai/)** — or go straight to one of the APIs or properties below.
 
-- **Real, public API docs exist.** docs.poolside.ai publishes a full reference for an OpenAI-compatible inference API (`/openai/v1/chat/completions`, `/openai/v1/completions`, `/openai/v1/models`), an admin Identity Management API (`/poolside/v1`), and a SCIM 2.0 provisioning endpoint (`/scim`). A real OpenAPI 3.1 document is published at `https://api.poolsi.de/openai/openapi.json`.
-- **There is no shared public host.** Poolside's own docs state the base URL is "configured per deployment: `https://<api-domain>`" - the fetched OpenAPI spec has no `servers` field for exactly this reason. Each customer gets their own domain once Poolside is deployed into their environment.
-- **Access requires an existing deployment.** API key creation assumes "you can access your Poolside deployment" (developer keys) or a `tenant-admin` role (service-account keys). There is no public account-creation or API-key-purchase flow on poolside.ai.
-- **No public pricing.** The poolside.ai site has no pricing or contact-sales link in its navigation; engagement is a direct sales conversation. Poolside's own `/enterprise` page describes delivery into a customer's AWS/Azure/Google Cloud VPC, on Poolside-pre-provisioned hardware, or on the customer's own NVIDIA GPU cluster via Helm - including fully air-gapped on-prem installs.
-- **A public, third-party workaround exists.** Poolside's smaller open-weight model, Laguna XS 2.1, is listed on [OpenRouter](https://openrouter.ai/poolside) and callable through OpenRouter's own public API and pricing. That is a genuinely self-serve way to send a request to a Poolside model, but it is OpenRouter's endpoint and billing, not Poolside's.
+### APIs (4)
 
-## Type
+- [Poolside Identity Management API](https://apis.io/apis/poolside-ai/poolside-identity-management-api/) — Poolside's own admin API (/poolside/v1) for automating user and team administration on a deployment - create/get/update/delete users, and add, remove, or…
+- [Poolside SCIM API](https://apis.io/apis/poolside-ai/poolside-scim-api/) — SCIM 2.0 provisioning endpoint (/scim) for connecting an external identity provider (Okta, Entra ID, etc.) to automatically provision and deprovision…
+- [Poolside Chat API](https://apis.io/apis/poolside-ai/poolside-ai-chat-api/) — The chat API from Poolside — 2 operation(s) for chat.
+- [Poolside Models API](https://apis.io/apis/poolside-ai/poolside-ai-models-api/) — The models API from Poolside — 1 operation(s) for models.
 
-- **x-type:** company
+### Published properties
 
-## Tags
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- AI, LLM, Foundation Models, Agentic Coding, Software Engineering, Enterprise, On-Prem, Open Weights
+#### Agentic access (1)
 
-## Timestamps
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Created:** 2026-07-02
-- **Modified:** 2026-07-02
+- [Poolside Ai Agentic Access](https://apis.io/agentic-access/poolside-ai/poolside-ai-agentic-access/)
 
-## APIs
+#### Collections (2)
 
-| API | Description |
-|---|---|
-| Poolside Chat Completions API | OpenAI-compatible chat completions (`POST /openai/v1/chat/completions`) serving Laguna models; base URL is per-deployment. |
-| Poolside Completions API (Legacy) | Deprecated token-completion endpoint (`POST /openai/v1/completions`), still published in the OpenAPI spec. |
-| Poolside Models API | Lists models available on a deployment (`GET /openai/v1/models`). |
-| Poolside Identity Management API | Admin API (`/poolside/v1`) for user and team management, alternative/complement to SCIM. |
-| Poolside SCIM API | SCIM 2.0 provisioning endpoint (`/scim`) for connecting an external identity provider. |
+Postman and Open Collection request collections.
 
-## Common Properties
+- [OpenAI Compatible chat API](https://apis.io/collections/poolside-ai/open-poolside-ai-chat-api/)
+- [OpenAI Compatible chat models API](https://apis.io/collections/poolside-ai/open-poolside-ai-models-api/)
 
-- [GitHub Organization](https://github.com/poolsideai)
-- [LinkedIn](https://www.linkedin.com/company/poolsideai)
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Poolside Ai Authentication](https://apis.io/security/poolside-ai/poolside-ai-authentication/)
+- [Poolside Ai Trust Center](https://apis.io/security/poolside-ai/poolside-ai-trust-center/)
+- [Poolside Ai Vulnerability Disclosure](https://apis.io/security/poolside-ai/poolside-ai-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Poolside Ai Plans Pricing](https://apis.io/plans/poolside-ai/poolside-ai-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Poolside Ai Rate Limits](https://apis.io/rate-limits/poolside-ai/poolside-ai-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Poolside Ai Finops](https://apis.io/finops/poolside-ai/poolside-ai-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://poolside.ai/)
 - [Documentation](https://docs.poolside.ai/)
-- [Plans](plans/poolside-ai-plans-pricing.yml) — API Commons Plans 0.1
-- [Rate Limits](rate-limits/poolside-ai-rate-limits.yml) — API Commons Rate Limits 0.1
-- [Fin Ops](finops/poolside-ai-finops.yml) — FOCUS-aligned FinOps Framework 1.0
+- [Blog](https://poolside.ai/blog)
+- [GitHub](https://github.com/poolsideai)
 
-## Artifacts
+## API Evangelist rating
 
-| Artifact | Path | Notes |
-|---|---|---|
-| OpenAPI | `openapi/poolside-ai-openapi.json` | Real spec fetched from `https://api.poolsi.de/openai/openapi.json` (OpenAPI 3.1.0, no `servers` field - per-deployment host). |
-| Plans | `plans/poolside-ai-plans-pricing.yml` | No public price list; enterprise contract only, plus third-party OpenRouter usage pricing for Laguna XS 2.1. |
-| Rate Limits | `rate-limits/poolside-ai-rate-limits.yml` | No published numeric limits; throughput is bound by the GPU capacity provisioned per deployment. |
-| FinOps | `finops/poolside-ai-finops.yml` | No metered Poolside invoice; cost governance is contract + deployment-infrastructure spend. |
-| Review | `review.yml` | "Does Poolside expose a documented public WebSocket API?" - answer: false, with full sourcing on the enterprise-gated API model. |
+**Kin Score 25.3** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 41.9 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 15.8 |
 
-**FN:** Kin Lane
+**Agent readiness 23.7** — agent-aware
 
-**Email:** kin@apievangelist.com
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.5** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/poolside-ai/](https://apis.io/providers/poolside-ai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Poolside: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/poolside-ai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
